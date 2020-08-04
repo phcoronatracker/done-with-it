@@ -1,5 +1,6 @@
 import { create } from "apisauce";
 import cache from "../util/cache";
+import authStorage from "../auth/storage";
 
 const apiClient = create({
     baseURL: "https://done-with-it.herokuapp.com/",
@@ -7,6 +8,13 @@ const apiClient = create({
         Accept: "application/json",
         "Content-Type": "application/json",
     },
+});
+
+apiClient.addAsyncRequestTransform(async (request) => {
+    const authToken = await authStorage.getToken();
+    if (!authToken) return;
+
+    request.headers["x-auth-token"] = authToken;
 });
 
 const get = apiClient.get;

@@ -5,7 +5,7 @@ import { StyleSheet, ActivityIndicator, Platform } from "react-native";
 import * as Yup from "yup";
 
 import { Screen, AppForm, FormField, Submit, ErrorMessage } from "../components";
-import user from "../api/auth";
+import userAPI from "../api/auth";
 import colors from "../config/colors";
 
 const validationSchema = Yup.object().shape({
@@ -21,19 +21,17 @@ export default function RegisterScreen({ navigation }) {
 
     const handleSubmit = async (values, { resetForm }) => {
         setLoading(true);
-        const response = await user.register(values);
+        const response = await userAPI.register(values);
         setLoading(false);
         resetForm();
 
         if (!response.ok) {
-            console.log(response.originalError);
             setErrorMessage(response.data.error);
             return setError(true);
         }
 
         setError(false);
-        console.log(response.data);
-        alert("Login success!");
+        alert("You account has been created!");
     };
 
     return (

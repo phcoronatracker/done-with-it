@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Image, Platform, ActivityIndicator } from "react-native";
 import * as Yup from "yup";
 
 import { Screen, FormField, Submit, AppForm, ErrorMessage } from "../components";
-import user from "../api/auth";
 import colors from "../config/colors";
+import useAuth from "../hooks/useAuth";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
@@ -14,26 +14,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen({ navigation }) {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-
-    const handleSubmit = async (values, { resetForm }) => {
-        setLoading(true);
-        const response = await user.login(values);
-        setLoading(false);
-        resetForm();
-
-        if (!response.ok) {
-            console.log(response.originalError);
-            setErrorMessage(response.data.error);
-            return setError(true);
-        }
-
-        setError(false);
-        console.log(response.data);
-        alert("Successful!");
-    };
+    const { handleLogin, error, errorMessage, loading } = useAuth();
 
     return (
         <Screen>
@@ -41,7 +22,7 @@ export default function LoginScreen({ navigation }) {
             <ErrorMessage visibility={error} error={errorMessage} style={styles.upper} />
             <AppForm
                 initialValues={{ email: "", password: "" }}
-                onSubmit={handleSubmit}
+                onSubmit={handleLogin}
                 validationSchema={validationSchema}
             >
                 <FormField
