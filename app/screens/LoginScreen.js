@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import { StyleSheet, Image, Platform, ActivityIndicator } from "react-native";
+import { StyleSheet, Image, Platform } from "react-native";
 import * as Yup from "yup";
 
-import { Screen, FormField, Submit, AppForm, ErrorMessage } from "../components";
+import { Screen, FormField, Submit, AppForm, ErrorMessage, ActivityIndicator } from "../components";
 import colors from "../config/colors";
 import useAuth from "../hooks/useAuth";
 
@@ -17,40 +17,42 @@ export default function LoginScreen({ navigation }) {
     const { handleLogin, error, errorMessage, loading } = useAuth();
 
     return (
-        <Screen>
-            <Image source={require("../assets/logo-red.png")} style={styles.logo} />
-            <ErrorMessage visibility={error} error={errorMessage} style={styles.upper} />
-            <AppForm
-                initialValues={{ email: "", password: "" }}
-                onSubmit={handleLogin}
-                validationSchema={validationSchema}
-            >
-                <FormField
-                    autoCapitalize="none"
-                    autoCompleteType="email"
-                    autoCorrect={false}
-                    icon="email"
-                    keyboardType="email-address"
-                    name="email"
-                    placeholder="Email"
-                    style={styles.upper}
-                    textContentType="emailAddress"
-                />
-                <FormField
-                    autoCapitalize="none"
-                    autoCompleteType="password"
-                    autoCorrect={false}
-                    icon="lock"
-                    name="password"
-                    placeholder="Password"
-                    secureTextEntry
-                    style={styles.password}
-                    textContentType="password"
-                />
-                <Submit title="Login" style={styles.button} />
-            </AppForm>
-            {loading && <ActivityIndicator size={"large"} animating style={{ marginTop: 20 }} color={colors.primary} />}
-        </Screen>
+        <>
+            <ActivityIndicator visible={loading} />
+            <Screen>
+                <Image source={require("../assets/logo-red.png")} style={styles.logo} />
+                <ErrorMessage visibility={error} error={errorMessage} style={styles.upper} />
+                <AppForm
+                    initialValues={{ email: "", password: "" }}
+                    onSubmit={handleLogin}
+                    validationSchema={validationSchema}
+                >
+                    <FormField
+                        autoCapitalize="none"
+                        autoCompleteType="email"
+                        autoCorrect={false}
+                        icon="email"
+                        keyboardType="email-address"
+                        name="email"
+                        placeholder="Email"
+                        style={styles.upper}
+                        textContentType="emailAddress"
+                    />
+                    <FormField
+                        autoCapitalize="none"
+                        autoCompleteType="password"
+                        autoCorrect={false}
+                        icon="lock"
+                        name="password"
+                        placeholder="Password"
+                        secureTextEntry
+                        style={styles.password}
+                        textContentType="password"
+                    />
+                    <Submit title="Login" style={styles.button} />
+                </AppForm>
+            </Screen>
+        </>
     );
 }
 

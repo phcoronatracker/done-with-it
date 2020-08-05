@@ -17,34 +17,39 @@ export default function ListingsScreen({ navigation }) {
     }, []);
 
     return (
-        <Screen safeAreaStyle={styles.container}>
-            {error && (
-                <>
-                    <AppText style={{ fontSize: 18 }}>Server is currently down. Please try again.</AppText>
-                    <TouchableOpacity style={styles.button} onPress={() => request()}>
-                        <Text style={{ color: colors.white, fontSize: 20 }}>Try Again</Text>
-                    </TouchableOpacity>
-                </>
-            )}
+        <>
             <ActivityIndicator visible={loading} />
-            <FlatList
-                data={listings}
-                extraData={listings}
-                keyExtractor={(listing) => listing._id}
-                renderItem={({ item }) => (
-                    <Card
-                        imageURL={item.images[0].url}
-                        thumbnailURL={item.images[0].thumbnail}
-                        title={item.title}
-                        price={`$${item.price}`}
-                        key={item._id}
-                        onPress={() => navigation.navigate("ListingDetails", item)}
-                    />
+            <Screen safeAreaStyle={styles.container}>
+                {error && (
+                    <>
+                        <AppText style={{ fontSize: 18 }}>Server is currently down. Please try again.</AppText>
+                        <TouchableOpacity style={styles.button} onPress={() => request()}>
+                            <Text style={{ color: colors.white, fontSize: 20 }}>Try Again</Text>
+                        </TouchableOpacity>
+                    </>
                 )}
-                refreshControl={<RefreshControl onRefresh={request} refreshing={loading} tintColor={colors.primary} />}
-                showsVerticalScrollIndicator={false}
-            />
-        </Screen>
+
+                <FlatList
+                    data={listings}
+                    extraData={listings}
+                    keyExtractor={(listing) => listing._id}
+                    renderItem={({ item }) => (
+                        <Card
+                            imageURL={item.images[0].url}
+                            thumbnailURL={item.images[0].thumbnail}
+                            title={item.title}
+                            price={`$${item.price}`}
+                            key={item._id}
+                            onPress={() => navigation.navigate("ListingDetails", item)}
+                        />
+                    )}
+                    refreshControl={
+                        <RefreshControl onRefresh={request} refreshing={loading} tintColor={colors.primary} />
+                    }
+                    showsVerticalScrollIndicator={false}
+                />
+            </Screen>
+        </>
     );
 }
 
