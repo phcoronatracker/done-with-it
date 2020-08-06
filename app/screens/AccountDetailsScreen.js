@@ -25,6 +25,7 @@ export default function AccountDetailsScreen({ navigation }) {
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
                 quality: 0.5,
                 allowsMultipleSelection: true,
+                allowsEditing: true,
             });
 
             if (!res.cancelled) {

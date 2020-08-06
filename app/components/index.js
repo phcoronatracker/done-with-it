@@ -19,6 +19,7 @@ export { default as ImageInput } from "./ImageInput/ImageInput";
 export { default as ImageInputList } from "./ImageInputList/ImageInputList";
 export { default as FormImagePicker } from "./FormImagePicker/FormImagePicker";
 export { default as ActivityIndicator } from "./ActivityIndicator/ActivityIndicator";
+export { default as Loading } from "./ActivityIndicator/Loading";
 export { default as OfflineNotice } from "./OfflineNotice/OfflineNotice";
 export { default as ContactSellerForm } from "./ContactSellerForm/ContactSellerForm";
 

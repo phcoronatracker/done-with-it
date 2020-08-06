@@ -1,15 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 
-import { AppText, ListItem, ContactSellerForm } from "../components";
+import { AppText, ListItem, ContactSellerForm, Loading } from "../components";
 import colors from "../config/colors";
-import useAuth from "../hooks/useAuth";
+import listingsAPI from "../api/listings";
+import useAPI from "../hooks/useAPI";
 
 export default function ListingDetailsScreen({ route }) {
-    const { user } = useAuth();
     const data = route.params;
+    const { data: lister, request, loading } = useAPI(listingsAPI.getListerInfo);
+
+    useEffect(() => {
+        request(data.userId);
+    }, []);
 
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -24,8 +30,15 @@ export default function ListingDetailsScreen({ route }) {
                     <View style={styles.detailsContainer}>
                         <AppText style={styles.title}>{data.title}</AppText>
                         <AppText style={styles.price}>${data.price}</AppText>
+                        <Loading visible={loading} style={{ marginBottom: 40 }} />
                         <View style={styles.userContainer}>
-                            <ListItem image={user.userImage} title="Joshua Figueroa" sub="5 Listings" />
+                            {!loading && (
+                                <ListItem
+                                    image={lister.image}
+                                    title={lister.name}
+                                    sub={`${lister.count} listing${lister.count > 1 ? "s" : ""}`}
+                                />
+                            )}
                         </View>
                         <ContactSellerForm listingID={data._id} receiverID={data.userId} />
                     </View>

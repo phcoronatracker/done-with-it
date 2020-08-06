@@ -24,4 +24,8 @@ const postListing = (listing, trackProgress) => {
     });
 };
 
-export default { getListings, postListing };
+const getListerInfo = (listerID) => {
+    return api.post(`${endpoint}/lister-info`, { id: listerID });
+};
+
+export default { getListings, postListing, getListerInfo };
