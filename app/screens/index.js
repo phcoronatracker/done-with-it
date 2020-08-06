@@ -7,3 +7,4 @@ export { default as AccountScreen } from "./AccountScreen";
 export { default as ListingsScreen } from "./ListingsScreen";
 export { default as LoginScreen } from "./LoginScreen";
 export { default as ListingEditScreen } from "./ListingEditScreen";
+export { default as AccountDetailsScreen } from "./AccountDetailsScreen";

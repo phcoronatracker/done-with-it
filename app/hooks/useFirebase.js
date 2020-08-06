@@ -39,5 +39,19 @@ export default useFirebase = (URIs) => {
         return imageURis;
     };
 
-    return { uploadImage };
+    const uploadProfileImage = async (uri, id) => {
+        const res = await fetch(uri);
+        const blob = await res.blob();
+
+        const ref = storageRef.child(`users/${id}`);
+
+        const result = await ref.put(blob, metadata);
+        console.log("Uploaded");
+
+        const download = await ref.getDownloadURL();
+        console.log("Downloaded");
+        return download;
+    };
+
+    return { uploadImage, uploadProfileImage };
 };

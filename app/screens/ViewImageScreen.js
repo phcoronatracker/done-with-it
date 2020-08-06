@@ -1,22 +1,21 @@
+/* eslint-disable react/prop-types */
 import React from "react";
-import { StyleSheet, Image, View } from "react-native";
+import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { Screen } from "../components";
-
 import colors from "../config/colors";
 
-export default function ViewImageScreen() {
+export default function ViewImageScreen({ route, navigation }) {
     return (
-        <Screen>
+        <Screen style={styles.view}>
             <View style={styles.container}>
                 <View style={styles.close}>
-                    <MaterialCommunityIcons name="close" color={colors.white} size={30} />
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <MaterialCommunityIcons name="close" color={colors.white} size={30} />
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.delete}>
-                    <MaterialCommunityIcons name="trash-can-outline" color={colors.white} size={30} />
-                </View>
-                <Image source={require("../assets/chair.jpg")} style={styles.image} />
+                <Image source={{ uri: route.params }} style={styles.image} />
             </View>
         </Screen>
     );
@@ -25,21 +24,20 @@ export default function ViewImageScreen() {
 const styles = StyleSheet.create({
     close: {
         position: "absolute",
-        top: 11,
-        left: 20,
+        top: 20,
+        right: 20,
+        zIndex: 1,
     },
     container: {
         backgroundColor: colors.black,
         flex: 1,
     },
-    delete: {
-        position: "absolute",
-        top: 11,
-        right: 20,
-    },
     image: {
         width: "100%",
         height: "100%",
         resizeMode: "contain",
+    },
+    view: {
+        padding: 0,
     },
 });

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-useless-catch */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
@@ -8,9 +9,11 @@ import { Screen, Card, AppText, ActivityIndicator } from "../components";
 import colors from "../config/colors";
 import listingsAPI from "../api/listings";
 import useAPI from "../hooks/useAPI";
+import useNotifications from "../hooks/useNotifications";
 
 export default function ListingsScreen({ navigation }) {
     const { data: listings, error, loading, request } = useAPI(listingsAPI.getListings);
+    useNotifications();
 
     useEffect(() => {
         request();

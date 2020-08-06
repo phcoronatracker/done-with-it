@@ -1,9 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
 import React from "react";
 import { StyleSheet, ImageBackground, View, Image, Text } from "react-native";
 
 import { Screen, AppButton } from "../components";
-
-import colors from "../config/colors";
 
 export default function WelcomeScreen({ navigation }) {
     return (

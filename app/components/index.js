@@ -20,5 +20,6 @@ export { default as ImageInputList } from "./ImageInputList/ImageInputList";
 export { default as FormImagePicker } from "./FormImagePicker/FormImagePicker";
 export { default as ActivityIndicator } from "./ActivityIndicator/ActivityIndicator";
 export { default as OfflineNotice } from "./OfflineNotice/OfflineNotice";
+export { default as ContactSellerForm } from "./ContactSellerForm/ContactSellerForm";
 
 export { default as Screen } from "./Screen/Screen";

@@ -32,4 +32,6 @@ const removeToken = async () => {
     }
 };
 
+getUser().then((user) => console.log(user));
+
 export default { getToken, storeToken, removeToken, getUser };

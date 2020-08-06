@@ -1,21 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-useless-catch */
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
 import colors from "../../config/colors";
+import useUpload from "../../hooks/useUpload";
 
 export default function ImageInput({ style, imageURI = null, onChangeImage }) {
-    const requestPermission = async () => {
-        const { granted } = await ImagePicker.requestCameraRollPermissionsAsync();
-        if (!granted) alert("You need to enable permission to access the library!");
-    };
-
-    useEffect(() => {
-        requestPermission();
-    }, []);
+    useUpload();
 
     const selectImage = async () => {
         try {

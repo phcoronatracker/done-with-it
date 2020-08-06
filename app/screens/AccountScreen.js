@@ -34,8 +34,9 @@ export default function AccountScreen({ navigation }) {
                     <ListItem
                         title={user.name}
                         sub={user.email}
-                        image={require("../assets/joshua.jpg")}
+                        image={user.userImage}
                         style={styles.padding}
+                        onPress={() => navigation.navigate("AccountDetails", user)}
                     />
                 </View>
                 <View style={styles.subContainer}>

@@ -5,6 +5,7 @@ import jwtDecode from "jwt-decode";
 import AuthContext from "../auth/context";
 import authStorage from "../auth/storage";
 import userAPI from "../api/auth";
+import uploadAPI from "../api/account";
 
 export default useAuth = () => {
     const { user, setUser } = useContext(AuthContext);
@@ -33,5 +34,20 @@ export default useAuth = () => {
         authStorage.removeToken();
     };
 
-    return { user, handleLogout, handleLogin, loading, error, errorMessage };
+    const handleUploadImage = async (firebaseImage) => {
+        setLoading(true);
+        const response = await uploadAPI.uploadImage(firebaseImage);
+        setLoading(false);
+
+        if (!response.ok) {
+            setErrorMessage(response.data.error);
+            return setError(true);
+        }
+
+        setError(false);
+        setUser(jwtDecode(response.data));
+        authStorage.storeToken(response.data);
+    };
+
+    return { user, handleLogout, handleLogin, handleUploadImage, loading, error, errorMessage };
 };

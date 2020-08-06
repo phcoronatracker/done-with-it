@@ -8,10 +8,6 @@ import LottieView from "lottie-react-native";
 import { AppText } from "../components";
 import colors from "../config/colors";
 
-/**
- 
- */
-
 export default function UploadScreen({ done, progress = 0, visibility = false, indeterminate, show }) {
     return (
         <Modal visible={visibility}>

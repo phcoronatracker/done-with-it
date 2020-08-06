@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/display-name */
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
