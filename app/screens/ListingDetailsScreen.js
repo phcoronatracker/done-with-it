@@ -40,7 +40,7 @@ export default function ListingDetailsScreen({ route }) {
                                 />
                             )}
                         </View>
-                        <ContactSellerForm listingID={data._id} receiverID={data.userId} />
+                        <ContactSellerForm listingID={data._id} receiverID={data.userId} receiverName={lister.name} />
                     </View>
                 </View>
             </KeyboardAvoidingView>

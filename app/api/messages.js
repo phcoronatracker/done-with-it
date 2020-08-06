@@ -1,10 +1,18 @@
 import api from "./client";
 
 const endpoint = "/messages";
-const axiosConfig = { headers: { "Content-Type": "application/json" } };
 
-const sendMessage = (receiverId, listingId, message) => {
-    return api.post(endpoint, { to: receiverId, listing: listingId, content: message }, axiosConfig);
+const sendMessage = (receiverId, listingId, message, trackProgress) => {
+    return api.post(
+        endpoint,
+        { to: receiverId, listing: listingId, content: message },
+        {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            onUploadProgress: (progress) => trackProgress(progress.loaded / progress.total),
+        }
+    );
 };
 
 export default { sendMessage };

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { StyleSheet, Image, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { Image } from "react-native-expo-image-cache";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { Screen } from "../components";
@@ -15,7 +16,7 @@ export default function ViewImageScreen({ route, navigation }) {
                         <MaterialCommunityIcons name="close" color={colors.white} size={30} />
                     </TouchableOpacity>
                 </View>
-                <Image source={{ uri: route.params }} style={styles.image} />
+                <Image uri={route.params} style={styles.image} tint="dark" />
             </View>
         </Screen>
     );

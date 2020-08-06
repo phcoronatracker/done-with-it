@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { Image } from "react-native-expo-image-cache";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -13,7 +14,7 @@ export default function ListItem({ title, sub, image, icon, style, onPress, rend
             <TouchableOpacity underlayColor={colors.light} onPress={onPress} activeOpacity={0.8}>
                 <View style={[styles.container, style]}>
                     {icon}
-                    {image && <Image source={{ uri: image }} style={styles.image} />}
+                    {image && <Image uri={image} style={styles.image} tint="light" />}
                     <View style={styles.details}>
                         <AppText style={styles.title} numberOfLines={1}>
                             {title}

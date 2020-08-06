@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 
 import { Screen, ListItem, ListSeparator, ListItemDelete } from "../components";
 
@@ -48,10 +48,9 @@ export default function MessagesScreen() {
                     />
                 )}
                 ItemSeparatorComponent={() => <ListSeparator />}
-                refreshing={refreshing}
-                onRefresh={() => {
-                    setMessages(initialMessages);
-                }}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={() => setMessages(initialMessages)} />
+                }
             />
         </Screen>
     );

@@ -48,12 +48,12 @@ export default function AccountDetailsScreen({ navigation }) {
                 <View style={styles.imageContainer}>
                     <TouchableOpacity
                         activeOpacity={0.8}
-                        onPress={() => navigation.navigate("ViewImage", user.userImage, { mode: "modal" })}
+                        onPress={() => navigation.navigate("ViewImage", user.userImage)}
                     >
                         <Image uri={user.userImage} style={styles.image} tint="light" />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.icon} activeOpacity={0.85} onPress={handleSubmit}>
-                        <Icon name="camera" backgroundColor={colors.white} iconColor={colors.black} size={40} />
+                        <Icon name="camera" backgroundColor={colors.white} iconColor={colors.medium} size={40} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.detailsContainer}>
