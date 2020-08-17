@@ -5,7 +5,7 @@ import { StyleSheet, View, KeyboardAvoidingView, Platform, ScrollView, Dimension
 import { Image } from "react-native-expo-image-cache";
 import * as Progress from "react-native-progress";
 
-import { AppText, ListItem, ContactSellerForm, Loading } from "../components";
+import { AppText, ListItem, ContactSellerForm } from "../components";
 import colors from "../config/colors";
 import listingsAPI from "../api/listings";
 import useAPI from "../hooks/useAPI";
@@ -51,11 +51,7 @@ export default function ListingDetailsScreen({ route, navigation }) {
                         <AppText style={styles.price}>${data.price}</AppText>
                         <View style={styles.userContainer}>
                             {loading ? (
-                                <Progress.Bar
-                                    width={width - 60}
-                                    color={colors.primary}
-                                    indeterminate
-                                />
+                                <Progress.Bar width={width - 60} color={colors.primary} indeterminate />
                             ) : (
                                 <ListItem
                                     image={lister.image}
@@ -91,7 +87,7 @@ const styles = StyleSheet.create({
     userContainer: {
         marginVertical: 20,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     screen: {
         padding: 0,
