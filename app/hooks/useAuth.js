@@ -8,7 +8,7 @@ import userAPI from "../api/auth";
 import uploadAPI from "../api/account";
 
 export default useAuth = () => {
-    const { user, setUser } = useContext(AuthContext);
+    const { user, setUser, socket } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -49,5 +49,5 @@ export default useAuth = () => {
         authStorage.storeToken(response.data);
     };
 
-    return { user, handleLogout, handleLogin, handleUploadImage, loading, error, errorMessage };
+    return { user, handleLogout, handleLogin, handleUploadImage, loading, error, errorMessage, socket };
 };

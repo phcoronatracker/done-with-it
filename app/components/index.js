@@ -22,5 +22,6 @@ export { default as ActivityIndicator } from "./ActivityIndicator/ActivityIndica
 export { default as Loading } from "./ActivityIndicator/Loading";
 export { default as OfflineNotice } from "./OfflineNotice/OfflineNotice";
 export { default as ContactSellerForm } from "./ContactSellerForm/ContactSellerForm";
+export { default as ListMessage } from "./ListItem/ListMessage";
 
 export { default as Screen } from "./Screen/Screen";

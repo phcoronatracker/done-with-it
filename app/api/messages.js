@@ -2,6 +2,8 @@ import api from "./client";
 
 const endpoint = "/messages";
 
+const getMessages = () => api.get(endpoint);
+
 const sendMessage = (receiverId, listingId, message, trackProgress) => {
     return api.post(
         endpoint,
@@ -15,4 +17,4 @@ const sendMessage = (receiverId, listingId, message, trackProgress) => {
     );
 };
 
-export default { sendMessage };
+export default { getMessages, sendMessage };

@@ -25,7 +25,9 @@ export default function ListingsScreen({ navigation }) {
             <Screen safeAreaStyle={styles.container}>
                 {error && (
                     <>
-                        <AppText style={{ fontSize: 18 }}>Server is currently down. Please try again.</AppText>
+                        <AppText style={{ fontSize: 19, textAlign: "center" }}>
+                            Server is currently down. Please try again.
+                        </AppText>
                         <TouchableOpacity style={styles.button} onPress={() => request()}>
                             <Text style={{ color: colors.white, fontSize: 20 }}>Try Again</Text>
                         </TouchableOpacity>

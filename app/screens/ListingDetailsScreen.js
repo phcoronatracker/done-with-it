@@ -1,21 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
-import { StyleSheet, View, KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { StyleSheet, View, KeyboardAvoidingView, Platform, ScrollView, Dimensions } from "react-native";
 import { Image } from "react-native-expo-image-cache";
+import * as Progress from "react-native-progress";
 
 import { AppText, ListItem, ContactSellerForm, Loading } from "../components";
 import colors from "../config/colors";
 import listingsAPI from "../api/listings";
 import useAPI from "../hooks/useAPI";
+import useAuth from "../hooks/useAuth";
 
-export default function ListingDetailsScreen({ route }) {
+const { width } = Dimensions.get("screen");
+
+export default function ListingDetailsScreen({ route, navigation }) {
     const data = route.params;
     const { data: lister, request, loading } = useAPI(listingsAPI.getListerInfo);
+    const { user, socket } = useAuth();
 
     useEffect(() => {
         request(data.userId);
-    }, []);
+    }, [socket]);
+
+    const handleSubmit = () => {
+        socket.emit("new-connection", { id: user.userId, receiverID: data.userId });
+        socket.on("new-connection", (conn) => {
+            navigation.navigate("Conversation", {
+                listingID: data._id,
+                listingName: data.title,
+                listerID: data.userId,
+                listerName: lister.name,
+                listerImage: lister.image,
+                messages: conn,
+            });
+        });
+    };
 
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -30,9 +49,14 @@ export default function ListingDetailsScreen({ route }) {
                     <View style={styles.detailsContainer}>
                         <AppText style={styles.title}>{data.title}</AppText>
                         <AppText style={styles.price}>${data.price}</AppText>
-                        <Loading visible={loading} style={{ marginBottom: 40 }} />
                         <View style={styles.userContainer}>
-                            {!loading && (
+                            {loading ? (
+                                <Progress.Bar
+                                    width={width - 60}
+                                    color={colors.primary}
+                                    indeterminate
+                                />
+                            ) : (
                                 <ListItem
                                     image={lister.image}
                                     title={lister.name}
@@ -40,7 +64,7 @@ export default function ListingDetailsScreen({ route }) {
                                 />
                             )}
                         </View>
-                        <ContactSellerForm listingID={data._id} receiverID={data.userId} receiverName={lister.name} />
+                        <ContactSellerForm onPress={handleSubmit} />
                     </View>
                 </View>
             </KeyboardAvoidingView>
@@ -66,6 +90,8 @@ const styles = StyleSheet.create({
     },
     userContainer: {
         marginVertical: 20,
+        justifyContent: "center",
+        alignItems: "center"
     },
     screen: {
         padding: 0,

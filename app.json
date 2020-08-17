@@ -24,7 +24,8 @@
             "favicon": "./app/assets/favicon.png"
         },
         "notification": {
-            "iosDisplayInForeground": true
+            "iosDisplayInForeground": true,
+            "icon": "./app/assets/icon.png"
         }
     }
 }
